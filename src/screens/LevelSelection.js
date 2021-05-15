@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, StyleSheet, Text, TouchableOpacity, Modal } from 'react-native'
+import dificultyLevels from './dificultyLevels'
 
 export default props => {
     return (
@@ -9,23 +10,18 @@ export default props => {
             <View style={styles.frame}>
                 <View style={styles.container}>
                     <Text style={styles.title}> Dificuldade </Text>
-                    <TouchableOpacity 
-                        style={[styles.button, styles.bgEasy]}
-                        onPress={() => props.onLvlSelected(0.05)}>
-                            <Text style={styles.buttonLabel}> Fácil </Text>
-                    </TouchableOpacity>
 
-                    <TouchableOpacity 
-                        style={[styles.button, styles.bgNormal]}
-                        onPress={() => props.onLvlSelected(0.1)}>
-                            <Text style={styles.buttonLabel}> Normal </Text>
-                    </TouchableOpacity>
-                    
-                    <TouchableOpacity 
-                        style={[styles.button, styles.bgHard]}
-                        onPress={() => props.onLvlSelected(0.25)}>
-                            <Text style={styles.buttonLabel}> Difícil </Text>
-                    </TouchableOpacity>
+                    {dificultyLevels.map((d, i) => {
+                        return (
+                            <TouchableOpacity 
+                                key={i}
+                                style={[styles.button, d.stl === 'bgEasy' ? styles.bgEasy : 
+                                    d.stl === 'bgNormal' ? styles.bgNormal : styles.bgHard]}
+                                onPress={() => props.onLvlSelected(d.dificulty)}>
+                                    <Text style={styles.buttonLabel}> {d.text} </Text>
+                            </TouchableOpacity>
+                        )
+                    })}
                 </View>
             </View>
         </Modal>
